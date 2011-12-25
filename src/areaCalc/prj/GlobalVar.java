@@ -19,7 +19,7 @@ public class GlobalVar {
 	public double latitude[] = new double[MAXNODE];
 	public int nodeIdx = 0;
 	//location mgr about
-	public int minTime = 5;
+	public int minTime = 3;
 	public int minDistance = 3;
 	//loop control signal
 	public Boolean isError = false;		//turn gps off while proccessing

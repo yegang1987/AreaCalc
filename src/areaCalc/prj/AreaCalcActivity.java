@@ -1,6 +1,6 @@
 package areaCalc.prj;
 
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,6 +27,7 @@ public class AreaCalcActivity extends Activity implements LocationListener{
         //System.out.println("Hello,it is the project of AreaCalc.");
         Button btn_Turn = (Button) findViewById(R.id.Turn);
         btn_Turn.setOnClickListener(TurnBtn_listener);
+        btn_Turn.setText("start");
         //
         
     }
@@ -139,22 +140,25 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     			GlobalVar.get().recordStart = true;
     			//
     			sysInit();
+    			////
+    			Button btn_Turn = (Button) findViewById(R.id.Turn);
+                btn_Turn.setText("end");
     			return;
     		}
     		
     		GlobalVar.get().recordOver = true;
     		//end record
     		//caculate the area from the data
-    		calcModel.calcArea();
+    		double areaS = calcModel.calcArea();
     		////////////////debug////////////////
     		TextView t_display = (TextView) findViewById(R.id.display);
     		//DecimalFormat nf = new DecimalFormat("0.00");
     		GlobalVar.get().msg = "\npath is: \n";
     		for(int idx=0; idx<GlobalVar.get().nodeIdx; idx++)
     			GlobalVar.get().msg = GlobalVar.get().msg +  GlobalVar.get().longitude[idx]
-    					+ ',' + GlobalVar.get().latitude[idx] + '\n';
-    		t_display.setText(GlobalVar.get().msg);
-    			
+    					+ "," + GlobalVar.get().latitude[idx] + "\n";
+    		GlobalVar.get().msg = GlobalVar.get().msg + "area sum is:" + areaS + "M2\n";
+    		t_display.setText(GlobalVar.get().msg);		
     		/////////////////////////////////////
     	}
     };
