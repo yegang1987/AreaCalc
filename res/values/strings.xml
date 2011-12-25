@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, AreaCalcActivity!</string>
+    <string name="TurnBtn">startend</string><string name="hello">Hello World, AreaCalcActivity!</string>
     <string name="app_name">AreaCalc</string>
+    
 
 </resources>
