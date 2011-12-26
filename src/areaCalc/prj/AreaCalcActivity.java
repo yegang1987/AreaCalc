@@ -104,12 +104,13 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     	//show distance from the start point
     	TextView dis_show = (TextView) findViewById(R.id.distance);
 		DecimalFormat nf = new DecimalFormat("0.00");
+		DecimalFormat nf2 = new DecimalFormat("0.000000");
 		
 		int idx = GlobalVar.get().nodeIdx;
 		dis_show.setText(nf.format( calcModel.distance(idx-1)) + 'm');
 		//show position
 		TextView pos_show = (TextView) findViewById(R.id.position);
-		pos_show.setText("lon_" + longitude + ", " + "lat_" + latitude);
+		pos_show.setText("lon_" + nf2.format(longitude) + ", " + "lat_" + nf2.format(latitude));
 		/////show time duration
 		int hour = GlobalVar.get().calendar.get(Calendar.HOUR_OF_DAY);
     	int minute = GlobalVar.get().calendar.get(Calendar.MINUTE);
@@ -180,15 +181,23 @@ public class AreaCalcActivity extends Activity implements LocationListener{
                 btn_Turn.setText("end");
     			return;
     		}
+    		if(GlobalVar.get().recordOver == true){
+    			return;
+    		}
     		
     		GlobalVar.get().recordOver = true;
     		//end record
     		//caculate the area from the data
     		double areaS = calcModel.calcArea();
+    		String unit = "M2";
+    		if(areaS > 1000000){
+    			unit = "KM2";
+    			areaS /= 1000000;
+    		}
     		////////////////debug////////////////
     		TextView t_display = (TextView) findViewById(R.id.display);
     		DecimalFormat nf = new DecimalFormat("0.00");
-    		GlobalVar.get().msg = "area sum is:" + areaS + "M2\n";
+    		GlobalVar.get().msg = "area sum is:" + areaS + " " + unit + "\n";
     		GlobalVar.get().msg = GlobalVar.get().msg + "\npath is: \n";
     		for(int idx=0; idx<GlobalVar.get().nodeIdx; idx++)
     			GlobalVar.get().msg = GlobalVar.get().msg +  nf.format(GlobalVar.get().longitude[idx])

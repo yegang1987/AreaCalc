@@ -17,7 +17,7 @@
     <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="56dp"
+        android:layout_height="76dp"
         android:stretchColumns="1" >
     	
         <TableRow >
@@ -25,6 +25,8 @@
             	android:text="position:"
             	android:gravity="left"
             	/>
+        </TableRow>
+        <TableRow >
              <TextView android:id="@+id/position"
         	 	android:text="lon_0.0, lat_0.0"
         		android:layout_width="fill_parent"

@@ -16,11 +16,11 @@ public class calcModel {
 		
 		for(int idx=1; idx<GlobalVar.get().nodeIdx-1; idx++){
 			//
-			double x1 = GlobalVar.get().latitude[idx];
-			double y1 = GlobalVar.get().longitude[idx];
+			double y1 = GlobalVar.get().latitude[idx];
+			double x1 = GlobalVar.get().longitude[idx];
 			
-			double x2 = GlobalVar.get().latitude[idx+1];
-			double y2 = GlobalVar.get().longitude[idx+1];
+			double y2 = GlobalVar.get().latitude[idx+1];
+			double x2 = GlobalVar.get().longitude[idx+1];
 			
 			areaS  = areaS + x0*y1 + x1*y2 + x2*y0 - x0*y2 - x1*y0 - x2*y1;
 		}

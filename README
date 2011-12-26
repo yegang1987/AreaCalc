@@ -16,3 +16,6 @@ track and save the way passed(the whole journey must be or approxima-
 tely be closed),for example:with the app turns on,you walk along the 
 West Lake from a place and end in the same place,then the algorithm will
 calculating the area of West Lake.It is pretty a practical application.
+
+hint:you can see the result demo in directory "sample",also can see the 
+.apk 
