@@ -1,6 +1,7 @@
 package areaCalc.prj;
 
-//import java.text.DecimalFormat;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     	//
     	switch(item.getItemId()){
     	case MENU_ABOUT:
+    		Toast.makeText(this, "welcome to the app!", Toast.LENGTH_LONG).show();
     		break;
     	case MENU_QUIT:
     		finishClear();		//quit the application
@@ -66,7 +68,8 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     	GlobalVar.get().msg = "";
     	
     	//delete the location updating service
-		mgr.removeUpdates(this);
+    	if(mgr != null)
+    		mgr.removeUpdates(this);
 		
 		//quit the app
     	finish();
@@ -98,6 +101,34 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     	double latitude = location.getLatitude();
     	
     	GlobalVar.get().node_append(longitude, latitude);		//insert new position
+    	//show distance from the start point
+    	TextView dis_show = (TextView) findViewById(R.id.distance);
+		DecimalFormat nf = new DecimalFormat("0.00");
+		
+		int idx = GlobalVar.get().nodeIdx;
+		dis_show.setText(nf.format( calcModel.distance(idx-1)) + 'm');
+		//show position
+		TextView pos_show = (TextView) findViewById(R.id.position);
+		pos_show.setText("lon_" + longitude + ", " + "lat_" + latitude);
+		/////show time duration
+		int hour = GlobalVar.get().calendar.get(Calendar.HOUR_OF_DAY);
+    	int minute = GlobalVar.get().calendar.get(Calendar.MINUTE);
+    	int second = GlobalVar.get().calendar.get(Calendar.SECOND);
+    	TextView time_show = (TextView) findViewById(R.id.time);
+    	//calculate the time duration
+    	int s_c = second - GlobalVar.get().start_s;
+    	if(s_c < 0){
+    		s_c = s_c + 60;
+    		minute--;
+    	}
+    	int m_c = minute - GlobalVar.get().start_m;
+    	if(m_c < 0){
+    		m_c = m_c + 60;
+    		hour--;
+    	}
+    	int h_c = hour - GlobalVar.get().start_h;
+    	time_show.setText( h_c+"h"+m_c+"m"+s_c+"s" );
+    	//////////////////////////////
     }
     
     public void onProviderDisabled(String provider){
@@ -125,6 +156,10 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     	//init location manager
     	mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
     	mgrUpdate();
+    	//get start time
+    	GlobalVar.get().start_h = GlobalVar.get().calendar.get(Calendar.HOUR_OF_DAY);
+    	GlobalVar.get().start_m = GlobalVar.get().calendar.get(Calendar.MINUTE);
+    	GlobalVar.get().start_s = GlobalVar.get().calendar.get(Calendar.SECOND);
     }
     //
     private void mgrUpdate(){
@@ -152,12 +187,12 @@ public class AreaCalcActivity extends Activity implements LocationListener{
     		double areaS = calcModel.calcArea();
     		////////////////debug////////////////
     		TextView t_display = (TextView) findViewById(R.id.display);
-    		//DecimalFormat nf = new DecimalFormat("0.00");
-    		GlobalVar.get().msg = "\npath is: \n";
+    		DecimalFormat nf = new DecimalFormat("0.00");
+    		GlobalVar.get().msg = "area sum is:" + areaS + "M2\n";
+    		GlobalVar.get().msg = GlobalVar.get().msg + "\npath is: \n";
     		for(int idx=0; idx<GlobalVar.get().nodeIdx; idx++)
-    			GlobalVar.get().msg = GlobalVar.get().msg +  GlobalVar.get().longitude[idx]
-    					+ "," + GlobalVar.get().latitude[idx] + "\n";
-    		GlobalVar.get().msg = GlobalVar.get().msg + "area sum is:" + areaS + "M2\n";
+    			GlobalVar.get().msg = GlobalVar.get().msg +  nf.format(GlobalVar.get().longitude[idx])
+    					+ "," + nf.format(GlobalVar.get().latitude[idx]) + "    ";
     		t_display.setText(GlobalVar.get().msg);		
     		/////////////////////////////////////
     	}

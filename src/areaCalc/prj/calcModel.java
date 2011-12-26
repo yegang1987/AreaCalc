@@ -25,8 +25,27 @@ public class calcModel {
 			areaS  = areaS + x0*y1 + x1*y2 + x2*y0 - x0*y2 - x1*y0 - x2*y1;
 		}
 		
-		return areaS>0 ? areaS/2 : areaS/2*-1;
+		return areaS>=0 ? areaS/2 : areaS/2*-1;
 	}
+	
+	public static double distance(int idx){
+		double lon_ori = GlobalVar.get().longitude[0];
+		double lat_ori = GlobalVar.get().latitude[0];
+		
+		double sx, sy; 
+		double roh = 45/Math.atan(1.000); 
+		sy = 40000000/360; 
+		sx = sy * Math.cos(lat_ori/roh); 
+	 
+		double lon = GlobalVar.get().longitude[idx];
+		double lat = GlobalVar.get().latitude[idx];
+		
+		double x = (lon - lon_ori) * sx;
+		double y = (lat - lat_ori) * sy; 
+		
+		return Math.sqrt( x*x + y*y );
+	}
+	//
 	private static void la2xy(){
 		//change the position from longitude&laltitue to x&y
 		double y0 = GlobalVar.get().latitude[0];

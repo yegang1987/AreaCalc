@@ -2,8 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical" >
+    <TextView 	android:text="GPS AreaCalc"
+    			android:layout_width="fill_parent"
+        		android:layout_height="wrap_content" 
+        		android:gravity="center"
+    />
+    <TextView 	android:text="-----------------------------------------------------------"
+    			android:layout_width="fill_parent"
+        		android:layout_height="wrap_content" 
+        		android:gravity="center"
+    />
+    
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="56dp"
+        android:stretchColumns="1" >
+    	
+        <TableRow >
+             <TextView
+            	android:text="position:"
+            	android:gravity="left"
+            	/>
+             <TextView android:id="@+id/position"
+        	 	android:text="lon_0.0, lat_0.0"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content" 
+        		android:gravity="center"
+       	 		/>
+        </TableRow>
+        
+        <TableRow >
+             <TextView
+            	android:text="distance:"
+            	android:gravity="left"
+            	/>
+             <TextView android:id="@+id/distance"
+        	 	android:text="0.0m"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content" 
+        		android:gravity="center"
+       	 		/>
+        </TableRow>
+       	<TableRow >
+             <TextView
+            	android:text="time:"
+            	android:layout_height="wrap_content" 
+            	android:gravity="left"
+            	/>
+            <TextView android:id="@+id/time"
+         		android:text="0.0s"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content" 
+        		android:gravity="center"
+        		/>
+        </TableRow>
+    </TableLayout>
+    
     <Button android:id="@+id/Turn"
          android:text="@string/TurnBtn"
          android:layout_width="fill_parent"

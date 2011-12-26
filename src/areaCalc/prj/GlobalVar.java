@@ -1,5 +1,7 @@
 package areaCalc.prj;
 
+import java.util.Calendar;
+
 //singleton design pattern
 public class GlobalVar {
 	private GlobalVar(){
@@ -28,6 +30,9 @@ public class GlobalVar {
 	public Boolean noSatelliteSignal = false;
 	//global msg
 	public String msg;
+	//time
+	public Calendar calendar = Calendar.getInstance();  
+	public int start_h, start_m, start_s;
 	
 	//
 	public void node_append(double longi, double lati){		//append a pair of position
